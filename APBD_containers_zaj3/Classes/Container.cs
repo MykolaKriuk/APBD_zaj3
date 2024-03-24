@@ -23,7 +23,7 @@ public abstract class Container (string containerType, int cargoWeight, int cont
     public virtual void AddCargo(int mass)
     {
         if (mass + CargoWeight > MaxCargoWeight)
-            throw new OverfillException();
+            throw new OverfillException("WARNING! Overfill is inevitable!");
 
         CargoWeight += mass;
         Console.WriteLine($"Added {mass} kilos to container {SerialNumber}");

@@ -15,7 +15,7 @@ public class LiquidContainer(string containerType, int cargoWeight, int containe
 
     public override void AddCargo(int mass)
     {
-        var weightLimit = isDangerous ? MaxCargoWeight * 0.5 : MaxCargoWeight * 0.9;
+        var weightLimit = IsDangerous ? MaxCargoWeight * 0.5 : MaxCargoWeight * 0.9;
 
         if (CargoWeight + mass > weightLimit)
         {
@@ -24,5 +24,6 @@ public class LiquidContainer(string containerType, int cargoWeight, int containe
         }
 
         CargoWeight += mass;
+        Console.WriteLine($"Added {mass} kilos to container {SerialNumber}");
     }
 }
