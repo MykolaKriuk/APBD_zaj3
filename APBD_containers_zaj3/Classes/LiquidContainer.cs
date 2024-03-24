@@ -2,10 +2,11 @@ using APBD_containers_zaj3.Interfaces;
 
 namespace APBD_containers_zaj3.Classes;
 
-public class LiquidContainer(string containerType, int cargoWeight, int containerHeight, 
-    int containerWeight, int containerDepth, int maxCargoWeight, bool isDangerous) 
-    : Container(containerType, cargoWeight, containerHeight, containerWeight, containerDepth, maxCargoWeight), IHazardNotifier
+public class LiquidContainer(double cargoWeight, int containerHeight, 
+    double containerWeight, int containerDepth, double maxCargoWeight, bool isDangerous) 
+    : Container(ContainerType, cargoWeight, containerHeight, containerWeight, containerDepth, maxCargoWeight), IHazardNotifier
 {
+    private const string ContainerType = "L";
     public bool IsDangerous { get; } = isDangerous;
     
     public void SendWarning()
@@ -13,7 +14,7 @@ public class LiquidContainer(string containerType, int cargoWeight, int containe
         Console.WriteLine($"WARNING! Dangerous situation with container {SerialNumber}");
     }
 
-    public override void AddCargo(int mass)
+    public override void AddCargo(double mass)
     {
         var weightLimit = IsDangerous ? MaxCargoWeight * 0.5 : MaxCargoWeight * 0.9;
 
