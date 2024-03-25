@@ -2,9 +2,9 @@ using APBD_containers_zaj3.Interfaces;
 
 namespace APBD_containers_zaj3.Classes;
 
-public class LiquidContainer(double cargoWeight, int containerHeight, 
+public class LiquidCargoContainer(int containerHeight, 
     double containerWeight, int containerDepth, double maxCargoWeight, bool isDangerous) 
-    : Container(ContainerType, cargoWeight, containerHeight, containerWeight, containerDepth, maxCargoWeight), IHazardNotifier
+    : CargoContainer(ContainerType, containerHeight, containerWeight, containerDepth, maxCargoWeight), IHazardNotifier
 {
     private const string ContainerType = "L";
     public bool IsDangerous { get; } = isDangerous;
@@ -26,5 +26,10 @@ public class LiquidContainer(double cargoWeight, int containerHeight,
 
         CargoWeight += mass;
         Console.WriteLine($"Added {mass} kilos to container {SerialNumber}");
+    }
+
+    public override string ToString()
+    {
+        return "Liquid " + base.ToString() + $", isDangerous={IsDangerous}";
     }
 }

@@ -1,6 +1,6 @@
 namespace APBD_containers_zaj3.Classes;
 
-public class FridgeContainer : Container
+public class FridgeCargoContainer : CargoContainer
 {
     private const string ContainerType = "F";
 
@@ -21,9 +21,9 @@ public class FridgeContainer : Container
     public string ProductType { get; }
     public double Temperature { get; protected set; }
 
-    public FridgeContainer(double cargoWeight, int containerHeight,
+    public FridgeCargoContainer(int containerHeight,
         double containerWeight, int containerDepth, double maxCargoWeight, string productType, double temperature)
-        : base(ContainerType, cargoWeight, containerHeight, containerWeight, containerDepth, maxCargoWeight)
+        : base(ContainerType, containerHeight, containerWeight, containerDepth, maxCargoWeight)
     {
         ProductType = productType;
         if (temperature < _prodTempDictionary[ProductType])
@@ -35,5 +35,10 @@ public class FridgeContainer : Container
         {
             Temperature = temperature;
         }
+    }
+
+    public override string ToString()
+    {
+        return "Fridge " + base.ToString() + $", prodType={ProductType}, temp={Temperature}";
     }
 }

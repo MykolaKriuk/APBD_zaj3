@@ -4,7 +4,7 @@ public class ContainerShip(int maxSpeed, int maxContainerValue, double maxWeight
 {
     private static int _idToAdd = 0;
     public int Id { get; } = _idToAdd++;
-    public List<Container> Containers { get; set; } = [];
+    public List<CargoContainer> Containers { get; set; } = [];
     public int MaxSpeed { get; set; } = maxSpeed;
     public int MaxContainerValue { get; set; } = maxContainerValue;
     public double MaxWeightToCarry { get; set; } = maxWeightToCarry;
@@ -13,15 +13,15 @@ public class ContainerShip(int maxSpeed, int maxContainerValue, double maxWeight
     {
         return Containers.Count + amount < MaxContainerValue;
     }
-    public void AddContainer(Container container)
+    public void AddContainer(CargoContainer cargoContainer)
     {
         if (CheckTheAmountOfSpace(1))
-            Containers.Add(container);
+            Containers.Add(cargoContainer);
         else
             Console.WriteLine("Not enough space on the carrier.");
     }
 
-    public void AddBundleOfContainers(List<Container> cons)
+    public void AddBundleOfContainers(List<CargoContainer> cons)
     {
         if (CheckTheAmountOfSpace(cons.Count))
             foreach (var v in cons)

@@ -3,9 +3,9 @@ using APBD_containers_zaj3.Interfaces;
 
 namespace APBD_containers_zaj3.Classes;
 
-public class GasContainer(double cargoWeight, int containerHeight, 
+public class GasCargoContainer(int containerHeight, 
     double containerWeight, int containerDepth, double maxCargoWeight, int pressure)
-    : Container(ContainerType, cargoWeight, containerHeight, containerWeight, containerDepth, maxCargoWeight), IHazardNotifier
+    : CargoContainer(ContainerType, containerHeight, containerWeight, containerDepth, maxCargoWeight), IHazardNotifier
 {
     private const string ContainerType = "G";
     public int Pressure { get; protected set; } = pressure;
@@ -25,5 +25,10 @@ public class GasContainer(double cargoWeight, int containerHeight,
     {
         if (CargoWeight + mass > MaxCargoWeight)
             throw new OverfillException("Too many gas!");
+    }
+
+    public override string ToString()
+    {
+        return "Gas " + base.ToString() + $", pressure={Pressure}";
     }
 }

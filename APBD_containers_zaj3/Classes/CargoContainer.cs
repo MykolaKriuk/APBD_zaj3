@@ -2,13 +2,13 @@ using APBD_containers_zaj3.Exceptions;
 
 namespace APBD_containers_zaj3.Classes;
 
-public abstract class Container (string containerType, double cargoWeight, int containerHeight, 
+public abstract class CargoContainer (string containerType, int containerHeight, 
     double containerWeight, int containerDepth, double maxCargoWeight)
 {
     private static int _numeralId = 0;
 
     public string SerialNumber { get; } = $"KON-{containerType}-{_numeralId++}";
-    public double CargoWeight { get; protected set; } = cargoWeight;
+    public double CargoWeight { get; protected set; }
     public int ContainerHeight { get; protected set; } = containerHeight;
     public double ContainerWeight { get; protected set; } = containerWeight;
     public int ContainerDepth { get; protected set; } = containerDepth;
@@ -27,5 +27,12 @@ public abstract class Container (string containerType, double cargoWeight, int c
 
         CargoWeight += mass;
         Console.WriteLine($"Added {mass} kilos to container {SerialNumber}");
+    }
+
+    public override string ToString()
+    {
+        return $"container: serialNum={SerialNumber}, conHeight={ContainerHeight}, " +
+               $"conWeight={ContainerWeight}, conDepth={ContainerDepth}, " +
+               $"maxCargoWeight={MaxCargoWeight}";
     }
 }
