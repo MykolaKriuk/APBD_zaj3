@@ -25,7 +25,15 @@ public class FridgeCargoContainer : CargoContainer
         double containerWeight, int containerDepth, double maxCargoWeight, string productType, double temperature)
         : base(ContainerType, containerHeight, containerWeight, containerDepth, maxCargoWeight)
     {
-        ProductType = productType;
+        var tmp = productType;
+        do
+        {
+            if (ProdTempDictionary.ContainsKey(tmp)) break;
+            Console.Write("Invalid product type. Enter new one: ");
+            tmp = Console.ReadLine();
+        } while (true);
+
+        ProductType = tmp;
         if (temperature < ProdTempDictionary[ProductType])
         {
             Console.WriteLine($"Temperature {temperature}C is too low. Changed to minimal permissible - {ProdTempDictionary[ProductType]}");
