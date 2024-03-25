@@ -1,6 +1,8 @@
+using System.Runtime.CompilerServices;
+
 namespace APBD_containers_zaj3.Classes;
 
-public class ContainerShip(int maxSpeed, int maxContainerValue, double maxWeightToCarry)
+public class CargoContainerShip(int maxSpeed, int maxContainerValue, double maxWeightToCarry)
 {
     private static int _idToAdd = 0;
     public int Id { get; } = _idToAdd++;
@@ -11,11 +13,12 @@ public class ContainerShip(int maxSpeed, int maxContainerValue, double maxWeight
 
     private bool CheckTheAmountOfSpace(int amount)
     {
-        return Containers.Count + amount < MaxContainerValue;
+        return Containers.Count + amount <= MaxContainerValue;
     }
+
     public void AddContainer(CargoContainer cargoContainer)
     {
-        if (CheckTheAmountOfSpace(1))
+        if (CheckTheAmountOfSpace(1) && (Containers.Sum(x => x.ContainerWeight)+cargoContainer.ContainerWeight)/1000 < MaxWeightToCarry)
             Containers.Add(cargoContainer);
         else
             Console.WriteLine("Not enough space on the carrier.");
@@ -23,7 +26,7 @@ public class ContainerShip(int maxSpeed, int maxContainerValue, double maxWeight
 
     public void AddBundleOfContainers(List<CargoContainer> cons)
     {
-        if (CheckTheAmountOfSpace(cons.Count))
+        if (CheckTheAmountOfSpace(cons.Count) && (Containers.Sum(x => x.ContainerWeight)+cons.Sum(x => x.CargoWeight))/1000 < MaxWeightToCarry)
             foreach (var v in cons)
                 Containers.Add(v);
         else
@@ -37,5 +40,16 @@ public class ContainerShip(int maxSpeed, int maxContainerValue, double maxWeight
         Containers.Remove(conToRemove);
         Console.WriteLine($"Container {id} is deleted.");
 
+    }
+
+    public override string ToString()
+    {
+        string containers = "";
+        foreach (var c in Containers)
+        {
+            containers += c + "\n";
+        }
+        return $"Container Ship: id={Id}, speed={MaxSpeed}, maxConValue={MaxContainerValue}, " +
+               $"maxWeight={MaxWeightToCarry}\nIts containers:\n{containers}";
     }
 }

@@ -25,6 +25,7 @@ public class GasCargoContainer(int containerHeight,
     {
         if (CargoWeight + mass > MaxCargoWeight)
             throw new OverfillException("Too many gas!");
+        CargoWeight += mass;
     }
 
     public override string ToString()

@@ -5,7 +5,7 @@ namespace APBD_containers_zaj3.Classes;
 public abstract class CargoContainer (string containerType, int containerHeight, 
     double containerWeight, int containerDepth, double maxCargoWeight)
 {
-    private static int _numeralId = 0;
+    private static int _numeralId = 1;
 
     public string SerialNumber { get; } = $"KON-{containerType}-{_numeralId++}";
     public double CargoWeight { get; protected set; }
@@ -31,7 +31,7 @@ public abstract class CargoContainer (string containerType, int containerHeight,
 
     public override string ToString()
     {
-        return $"container: serialNum={SerialNumber}, conHeight={ContainerHeight}, " +
+        return $"container: serialNum={SerialNumber}, cargoWeight={CargoWeight}, conHeight={ContainerHeight}, " +
                $"conWeight={ContainerWeight}, conDepth={ContainerDepth}, " +
                $"maxCargoWeight={MaxCargoWeight}";
     }

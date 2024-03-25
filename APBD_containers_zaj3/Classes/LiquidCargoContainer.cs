@@ -1,3 +1,4 @@
+using APBD_containers_zaj3.Exceptions;
 using APBD_containers_zaj3.Interfaces;
 
 namespace APBD_containers_zaj3.Classes;
@@ -21,7 +22,7 @@ public class LiquidCargoContainer(int containerHeight,
         if (CargoWeight + mass > weightLimit)
         {
             SendWarning();
-            return;
+            throw new OverfillException("WARNING! Overfill is inevitable!");
         }
 
         CargoWeight += mass;

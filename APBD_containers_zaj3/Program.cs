@@ -1,18 +1,78 @@
-﻿using APBD_containers_zaj3.Classes;
+﻿using System.Threading.Channels;
+using APBD_containers_zaj3.Classes;
 using Container = System.ComponentModel.Container;
 
 namespace APBD_containers_zaj3;
 
 class Program
 {
-    public static void Main(string[] args)
+    public static void Main()
     {
+        CargoContainer liqCon = new LiquidCargoContainer(
+            50, 5, 40, 20, false
+        );
+        Console.WriteLine("Adding cargo to container.\n");
+        liqCon.AddCargo(15);
+        Console.WriteLine(liqCon);
         
+        
+        CargoContainer gasCon = new GasCargoContainer(
+            50, 5, 40, 20, 100
+        );
+        Console.WriteLine("\nEmptying the container.\n");
+        gasCon.AddCargo(15);
+        gasCon.EmptyContainer();
+        Console.WriteLine(gasCon);
+        
+        
+        CargoContainer frCon = new FridgeCargoContainer(
+            50, 5, 40, 20, "Bananas", 10
+        );
+        
+        
+        Console.WriteLine("\nCreating a container.\n");
+        Console.Write("Enter a container type: ");
+        var newContainer = CreateContainer(Console.ReadLine());
+        
+
+        CargoContainerShip ship1 = new CargoContainerShip(20, 5, 50);
+        CargoContainerShip ship2 = new CargoContainerShip(20, 5, 50);
+
+        Console.WriteLine("\nAdding many containers to a ship.\n");
+        ship1.AddBundleOfContainers([liqCon /*0*/, gasCon /*1*/, frCon /*2*/,
+            new GasCargoContainer(50, 5, 40, 20, 100), //3
+            new GasCargoContainer(50, 5, 40, 20, 100) //4
+        ]);
+        Console.WriteLine(ship1);
+        
+        
+        Console.WriteLine("\nAdding container to a ship.\n");
+        if (newContainer != null) ship2.AddContainer(newContainer);
+        Console.WriteLine(ship2);
+
+        
+        Console.WriteLine("\nDeleting a container from a ship.\n");
+        ship1.DeleteContainer("KON-L-1");
+        Console.WriteLine(ship1);
+
+
+        Console.WriteLine("\nReplacing container with another.\n");
+        CargoContainer conToChange = new FridgeCargoContainer(
+            50, 5, 40, 20, "Meat", -10
+        );
+        ReplaceContainer(ship1, ship1.Containers[3], conToChange);
+        Console.Write(ship1);
+
+
+        Console.WriteLine("\nMoving a container from one ship to another.\n");
+        MoveFromOneShipToAnother(ship1, ship2);
+        Console.WriteLine(ship1);
+        Console.WriteLine(ship2);
     }
 
     public static CargoContainer? CreateContainer(string type)
     {
-        if (type != "G" || type != "L" || type != "F")
+        if (!"LFG".Contains(type))
         {
             Console.WriteLine("Invalid container.");
             return null;
@@ -72,5 +132,34 @@ class Program
         }
         Console.WriteLine($"New Container - {resCon}");
         return resCon;
+    }
+
+    public static void ReplaceContainer(CargoContainerShip ship, CargoContainer con1, CargoContainer con2)
+    {
+        if (!ship.Containers.Contains(con1))
+        {
+            Console.WriteLine("There is no such container.");
+            return;
+        }
+
+        var ind = ship.Containers.IndexOf(con1);
+        ship.Containers[ind] = con2;
+        Console.WriteLine($"Container {con1.SerialNumber} replaced with container {con2.SerialNumber}.");
+    }
+
+    public static void MoveFromOneShipToAnother(CargoContainerShip ship1, CargoContainerShip ship2)
+    {
+        Console.WriteLine("Enter serial number of container you want to move: ");
+        var serNum = Console.ReadLine();
+        var conToMove = ship1.Containers.FirstOrDefault(x => x.SerialNumber == serNum);
+        if (conToMove == null)
+        {
+            Console.WriteLine("No such container.");
+            return;
+        }
+
+        ship1.Containers.Remove(conToMove);
+        ship2.Containers.Add(conToMove);
+        Console.WriteLine($"Container {conToMove.SerialNumber} is move from ship {ship1.Id} to ship {ship2.Id}.");
     }
 }
