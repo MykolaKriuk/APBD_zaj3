@@ -1,15 +1,13 @@
-using System.Runtime.CompilerServices;
-
 namespace APBD_containers_zaj3.Classes;
 
 public class CargoContainerShip(int maxSpeed, int maxContainerValue, double maxWeightToCarry)
 {
-    private static int _idToAdd = 0;
+    private static int _idToAdd;
     public int Id { get; } = _idToAdd++;
-    public List<CargoContainer> Containers { get; set; } = [];
-    public int MaxSpeed { get; set; } = maxSpeed;
-    public int MaxContainerValue { get; set; } = maxContainerValue;
-    public double MaxWeightToCarry { get; set; } = maxWeightToCarry;
+    public List<CargoContainer> Containers { get; } = [];
+    private int MaxSpeed { get; } = maxSpeed;
+    private int MaxContainerValue { get; } = maxContainerValue;
+    private double MaxWeightToCarry { get; } = maxWeightToCarry;
 
     private bool CheckTheAmountOfSpace(int amount)
     {

@@ -4,7 +4,7 @@ public class FridgeCargoContainer : CargoContainer
 {
     private const string ContainerType = "F";
 
-    private static Dictionary<string, double> _prodTempDictionary = new Dictionary<string, double>
+    private static readonly Dictionary<string, double> ProdTempDictionary = new()
     {
         {"Bananas", 13.3},
         {"Chocolate", 18},
@@ -17,19 +17,19 @@ public class FridgeCargoContainer : CargoContainer
         {"Butter", 20.5},
         {"Eggs", 19}
     };
-    
-    public string ProductType { get; }
-    public double Temperature { get; protected set; }
+
+    private string ProductType { get; }
+    private double Temperature { get; }
 
     public FridgeCargoContainer(int containerHeight,
         double containerWeight, int containerDepth, double maxCargoWeight, string productType, double temperature)
         : base(ContainerType, containerHeight, containerWeight, containerDepth, maxCargoWeight)
     {
         ProductType = productType;
-        if (temperature < _prodTempDictionary[ProductType])
+        if (temperature < ProdTempDictionary[ProductType])
         {
-            Console.WriteLine($"Temperature {temperature}C is too low. Changed to minimal permissible - {_prodTempDictionary[ProductType]}");
-            Temperature = _prodTempDictionary[ProductType];
+            Console.WriteLine($"Temperature {temperature}C is too low. Changed to minimal permissible - {ProdTempDictionary[ProductType]}");
+            Temperature = ProdTempDictionary[ProductType];
         }
         else
         {

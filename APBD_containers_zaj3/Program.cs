@@ -1,6 +1,4 @@
-﻿using System.Threading.Channels;
-using APBD_containers_zaj3.Classes;
-using Container = System.ComponentModel.Container;
+﻿using APBD_containers_zaj3.Classes;
 
 namespace APBD_containers_zaj3;
 
@@ -70,20 +68,20 @@ class Program
         Console.WriteLine(ship2);
     }
 
-    public static CargoContainer? CreateContainer(string type)
+    private static CargoContainer? CreateContainer(string type)
     {
         if (!"LFG".Contains(type))
         {
             Console.WriteLine("Invalid container.");
             return null;
         }
-        Console.WriteLine("Enter height of the container: ");
+        Console.Write("Enter height of the container: ");
         var containerHeight = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Enter weight of the container: ");
+        Console.Write("Enter weight of the container: ");
         var containerWeight = Convert.ToDouble(Console.ReadLine());
-        Console.WriteLine("Enter depth of the container: ");
+        Console.Write("Enter depth of the container: ");
         var containerDepth = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Enter max cargoweight: ");
+        Console.Write("Enter max cargo weight: ");
         var maxCargoWeight = Convert.ToDouble(Console.ReadLine());
 
         CargoContainer? resCon = null;
@@ -91,7 +89,7 @@ class Program
         {
             case "L":
             {
-                Console.WriteLine("Is cargo dangerous? Print 1/0: ");
+                Console.Write("Is cargo dangerous? Print 1/0: ");
                 var isDangerous = Console.ReadLine() == "1";
                 resCon = new LiquidCargoContainer(
                     containerHeight,
@@ -103,7 +101,7 @@ class Program
             }
             case "G":
             {
-                Console.WriteLine("Enter a pressure level: ");
+                Console.Write("Enter a pressure level: ");
                 var pressure = Convert.ToInt32(Console.ReadLine());
                 resCon = new GasCargoContainer(
                     containerHeight,
@@ -115,9 +113,9 @@ class Program
             }
             case "F":
             {
-                Console.WriteLine("Enter a product type: ");
+                Console.Write("Enter a product type: ");
                 var productType = Console.ReadLine();
-                Console.WriteLine("Enter a needed temperature: ");
+                Console.Write("Enter a needed temperature: ");
                 var temperature = Convert.ToDouble(Console.ReadLine());
                 resCon = new FridgeCargoContainer(
                     containerHeight,
@@ -134,7 +132,7 @@ class Program
         return resCon;
     }
 
-    public static void ReplaceContainer(CargoContainerShip ship, CargoContainer con1, CargoContainer con2)
+    private static void ReplaceContainer(CargoContainerShip ship, CargoContainer con1, CargoContainer con2)
     {
         if (!ship.Containers.Contains(con1))
         {
@@ -147,7 +145,7 @@ class Program
         Console.WriteLine($"Container {con1.SerialNumber} replaced with container {con2.SerialNumber}.");
     }
 
-    public static void MoveFromOneShipToAnother(CargoContainerShip ship1, CargoContainerShip ship2)
+    private static void MoveFromOneShipToAnother(CargoContainerShip ship1, CargoContainerShip ship2)
     {
         Console.WriteLine("Enter serial number of container you want to move: ");
         var serNum = Console.ReadLine();

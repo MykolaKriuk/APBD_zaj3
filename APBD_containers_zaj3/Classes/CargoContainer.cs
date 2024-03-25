@@ -9,10 +9,10 @@ public abstract class CargoContainer (string containerType, int containerHeight,
 
     public string SerialNumber { get; } = $"KON-{containerType}-{_numeralId++}";
     public double CargoWeight { get; protected set; }
-    public int ContainerHeight { get; protected set; } = containerHeight;
-    public double ContainerWeight { get; protected set; } = containerWeight;
-    public int ContainerDepth { get; protected set; } = containerDepth;
-    public double MaxCargoWeight { get; protected set; } = maxCargoWeight;
+    private int ContainerHeight { get; } = containerHeight;
+    public double ContainerWeight { get; } = containerWeight;
+    private int ContainerDepth { get; } = containerDepth;
+    protected double MaxCargoWeight { get; } = maxCargoWeight;
 
     public virtual void EmptyContainer()
     {

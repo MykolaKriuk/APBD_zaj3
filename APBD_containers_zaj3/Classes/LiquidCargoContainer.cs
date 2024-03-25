@@ -8,7 +8,7 @@ public class LiquidCargoContainer(int containerHeight,
     : CargoContainer(ContainerType, containerHeight, containerWeight, containerDepth, maxCargoWeight), IHazardNotifier
 {
     private const string ContainerType = "L";
-    public bool IsDangerous { get; } = isDangerous;
+    private bool IsDangerous { get; } = isDangerous;
     
     public void SendWarning()
     {

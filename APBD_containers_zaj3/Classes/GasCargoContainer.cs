@@ -8,7 +8,7 @@ public class GasCargoContainer(int containerHeight,
     : CargoContainer(ContainerType, containerHeight, containerWeight, containerDepth, maxCargoWeight), IHazardNotifier
 {
     private const string ContainerType = "G";
-    public int Pressure { get; protected set; } = pressure;
+    private int Pressure { get; } = pressure;
     
     public void SendWarning()
     {
